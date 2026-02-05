@@ -29,8 +29,9 @@ export const Auth: React.FC = () => {
         });
         if (error) throw error;
       }
-    } catch (err: any) {
-      setError(err.message || '認証に失敗しました。');
+    } catch (err) {
+      const message = err instanceof Error ? err.message : '認証に失敗しました。';
+      setError(message);
     } finally {
       setLoading(false);
     }

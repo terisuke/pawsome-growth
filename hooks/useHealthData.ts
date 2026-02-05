@@ -200,7 +200,7 @@ export const useHealthData = () => {
       if (error) throw error;
       setDogs(prev => prev.filter(d => d.id !== id));
       if (activeDogId === id) {
-        setActiveDogId(prev => dogs.find(d => d.id !== id)?.id || null);
+        setActiveDogId(dogs.find(d => d.id !== id)?.id || null);
       }
     } catch (error) {
       console.error('Error deleting dog:', error);

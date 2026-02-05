@@ -1,6 +1,6 @@
 
+import { Calendar as CalendarIcon } from 'lucide-react';
 import React from 'react';
-import { Calendar as CalendarIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface ActivityCalendarProps {
   logs: string[]; // dates of logs
@@ -13,7 +13,7 @@ export const ActivityCalendar: React.FC<ActivityCalendarProps> = ({ logs }) => {
 
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDay = new Date(year, month, 1).getDay();
-  
+
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
   const blanks = Array.from({ length: firstDay }, (_, i) => i);
 
@@ -45,11 +45,10 @@ export const ActivityCalendar: React.FC<ActivityCalendarProps> = ({ logs }) => {
           const isToday = d === today.getDate();
 
           return (
-            <div 
-              key={d} 
-              className={`h-8 flex flex-col items-center justify-center relative rounded-lg ${
-                isToday ? 'bg-orange-50 text-orange-600 font-bold' : 'text-gray-600'
-              }`}
+            <div
+              key={d}
+              className={`h-8 flex flex-col items-center justify-center relative rounded-lg ${isToday ? 'bg-orange-50 text-orange-600 font-bold' : 'text-gray-600'
+                }`}
             >
               <span className="text-xs">{d}</span>
               {hasLog && (

@@ -1,13 +1,13 @@
 
 import { Camera, Trash2, X } from 'lucide-react';
-import React, { useEffect, useId, useState } from 'react';
+import React, { useId, useState } from 'react';
 import { Dog } from '../types';
 
 interface AddDogModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAdd: (name: string, breed: string, birthday: string, image: any) => void;
-  onUpdate?: (id: string, name: string, breed: string, birthday: string, image: any) => void;
+  onAdd: (name: string, breed: string, birthday: string, image: string | File) => void;
+  onUpdate?: (id: string, name: string, breed: string, birthday: string, image: string | File) => void;
   onDelete?: (id: string) => void;
   dog?: Dog | null;
 }
@@ -23,7 +23,12 @@ export const AddDogModal: React.FC<AddDogModalProps> = ({ isOpen, onClose, onAdd
   const breedInputId = useId();
   const birthdayInputId = useId();
 
-  useEffect(() => {
+  const [prevDog, setPrevDog] = useState<Dog | null | undefined>(dog);
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+
+  if (dog !== prevDog || isOpen !== prevIsOpen) {
+    setPrevDog(dog);
+    setPrevIsOpen(isOpen);
     if (dog) {
       setName(dog.name);
       setBreed(dog.breed);
@@ -36,7 +41,7 @@ export const AddDogModal: React.FC<AddDogModalProps> = ({ isOpen, onClose, onAdd
       setPreviewUrl(null);
     }
     setImageFile(null);
-  }, [dog, isOpen]);
+  }
 
   if (!isOpen) return null;
 
@@ -54,7 +59,7 @@ export const AddDogModal: React.FC<AddDogModalProps> = ({ isOpen, onClose, onAdd
     if (!name || !breed) return;
 
     // Pass either file or default/existing image
-    let imageToUpload: any = imageFile || previewUrl;
+    let imageToUpload: string | File = imageFile || previewUrl || '';
     if (!imageToUpload) {
       const randomId = Math.floor(Math.random() * 1000);
       imageToUpload = `https://images.unsplash.com/photo-${1537151608828 + randomId}-f5104be9f509?auto=format&fit=crop&q=80&w=200&h=200`;

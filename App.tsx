@@ -9,29 +9,9 @@ import { DogSelector } from './components/DogSelector';
 import { HealthChart } from './components/HealthChart';
 import { useHealthData } from './hooks/useHealthData';
 import { uploadDogImage } from './lib/storage';
+import { calculateAge } from './src/utils/date';
 
-const calculateAge = (birthday: string) => {
-  const birthDate = new Date(birthday);
-  const today = new Date();
 
-  let years = today.getFullYear() - birthDate.getFullYear();
-  let months = today.getMonth() - birthDate.getMonth();
-
-  if (months < 0 || (months === 0 && today.getDate() < birthDate.getDate())) {
-    years--;
-    months += 12;
-  }
-
-  if (years === 0) {
-    return `${months}ヶ月`;
-  }
-
-  if (months === 0) {
-    return `${years}歳`;
-  }
-
-  return `${years}歳${months}ヶ月`;
-};
 
 const App: React.FC = () => {
   const {
@@ -81,7 +61,7 @@ const App: React.FC = () => {
     }
   };
 
-  const handleAddDog = async (name: string, breed: string, birthday: string, image: any) => {
+  const handleAddDog = async (name: string, breed: string, birthday: string, image: string | File) => {
     let imageUrl = image;
     if (image instanceof File) {
       setUploading(true);
@@ -100,7 +80,7 @@ const App: React.FC = () => {
     setActiveTab('home');
   };
 
-  const handleUpdateDog = async (id: string, name: string, breed: string, birthday: string, image: any) => {
+  const handleUpdateDog = async (id: string, name: string, breed: string, birthday: string, image: string | File) => {
     let imageUrl = image;
     if (image instanceof File) {
       setUploading(true);

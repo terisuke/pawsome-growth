@@ -1,0 +1,42 @@
+
+> pawsome-growth@0.0.0 lint
+> eslint .
+
+
+/Users/teradakousuke/Developer/pawsome-growth/App.tsx
+   84:85   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  103:100  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/teradakousuke/Developer/pawsome-growth/components/ActivityCalendar.tsx
+  3:36  error  'ChevronLeft' is defined but never used   @typescript-eslint/no-unused-vars
+  3:49  error  'ChevronRight' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/teradakousuke/Developer/pawsome-growth/components/AddDogModal.tsx
+   9:65  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-explicit-any
+  10:81  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-explicit-any
+  28:7   error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/teradakousuke/Developer/pawsome-growth/components/AddDogModal.tsx:28:7
+  26 |   useEffect(() => {
+  27 |     if (dog) {
+> 28 |       setName(dog.name);
+     |       ^^^^^^^ Avoid calling setState() directly within an effect
+  29 |       setBreed(dog.breed);
+  30 |       setBirthday(dog.birthday || new Date().toISOString().split('T')[0]);
+  31 |       setPreviewUrl(dog.image);  react-hooks/set-state-in-effect
+  57:24  error  Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-explicit-any
+
+/Users/teradakousuke/Developer/pawsome-growth/components/Auth.tsx
+  32:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/teradakousuke/Developer/pawsome-growth/hooks/useHealthData.ts
+  203:24  error  'prev' is defined but never used  @typescript-eslint/no-unused-vars
+
+✖ 10 problems (10 errors, 0 warnings)
+
